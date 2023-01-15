@@ -3,7 +3,7 @@ const { Clutter, GObject, Pango, St } = imports.gi
 const ExtensionUtils = imports.misc.extensionUtils
 const Me = ExtensionUtils.getCurrentExtension()
 
-const { fallbackIfNaN, roundOrDefault } = Me.imports.helpers.data
+const { fallbackIfNaN } = Me.imports.helpers.data
 const { Translations } = Me.imports.helpers.translations
 const { MARKET_STATES } = Me.imports.services.meta.generic
 
