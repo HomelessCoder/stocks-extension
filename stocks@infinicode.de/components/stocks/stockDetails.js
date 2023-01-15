@@ -3,7 +3,8 @@ const { GObject, St } = imports.gi
 const ExtensionUtils = imports.misc.extensionUtils
 
 const Me = ExtensionUtils.getCurrentExtension()
-const { fallbackIfNaN, roundOrDefault } = Me.imports.helpers.data
+const { fallbackIfNaN } = Me.imports.helpers.data
+const { RoundOrDefault } = Me.imports.helpers.roundOrDefault;
 const { Translations } = Me.imports.helpers.translations
 const { MARKET_STATES } = Me.imports.services.meta.generic
 const { getQuoteStyle } = Me.imports.helpers.styles
@@ -84,7 +85,7 @@ var StockDetails = GObject.registerClass({
     const regularQuoteLabel = new St.Label({
       style_class: `quote-label`,
       style: quoteStyle,
-      text: `${roundOrDefault(quoteSummary.Close)}${quoteSummary.CurrencySymbol ? ` ${quoteSummary.CurrencySymbol}` : ''}`
+      text: `${RoundOrDefault.handle(quoteSummary.Close)}${quoteSummary.CurrencySymbol ? ` ${quoteSummary.CurrencySymbol}` : ''}`
     })
 
     quoteInformationBox.add_child(regularQuoteLabel)
@@ -97,7 +98,7 @@ var StockDetails = GObject.registerClass({
       const preMarketQuoteLabel = new St.Label({
         style_class: `quote-label pre-market`,
         style: preMarketQuoteStyle,
-        text: `${roundOrDefault(quoteSummary.PreMarketPrice)}${quoteSummary.CurrencySymbol ? ` ${quoteSummary.CurrencySymbol}` : ''}*`
+        text: `${RoundOrDefault.handle(quoteSummary.PreMarketPrice)}${quoteSummary.CurrencySymbol ? ` ${quoteSummary.CurrencySymbol}` : ''}*`
       })
 
       quoteInformationBox.add_child(preMarketQuoteLabel)
@@ -111,7 +112,7 @@ var StockDetails = GObject.registerClass({
       const postMarketQuoteLabel = new St.Label({
         style_class: `quote-label post-market`,
         style: postMarketQuoteStyle,
-        text: `${roundOrDefault(quoteSummary.PostMarketPrice)}${quoteSummary.CurrencySymbol ? ` ${quoteSummary.CurrencySymbol}` : ''}*`
+        text: `${RoundOrDefault.handle(quoteSummary.PostMarketPrice)}${quoteSummary.CurrencySymbol ? ` ${quoteSummary.CurrencySymbol}` : ''}*`
       })
 
       quoteInformationBox.add_child(postMarketQuoteLabel)
@@ -167,12 +168,12 @@ var StockDetails = GObject.registerClass({
 
     leftDetailBox.add(this._createDetailItem(
       this._createDetailItemLabel(Translations.STOCKS.OPEN),
-      this._createDetailItemValue(roundOrDefault(quoteSummary.Open))
+      this._createDetailItemValue(RoundOrDefault.handle(quoteSummary.Open))
     ))
 
     leftDetailBox.add(this._createDetailItem(
       this._createDetailItemLabel(Translations.STOCKS.HIGH),
-      this._createDetailItemValue(roundOrDefault(quoteSummary.High))
+      this._createDetailItemValue(RoundOrDefault.handle(quoteSummary.High))
     ))
 
     leftDetailBox.add(this._createDetailItem(
@@ -198,7 +199,7 @@ var StockDetails = GObject.registerClass({
 
     rightDetailBox.add(this._createDetailItem(
       this._createDetailItemLabel(Translations.STOCKS.PREVIOUS_CLOSE),
-      this._createDetailItemValue(roundOrDefault(quoteSummary.PreviousClose))
+      this._createDetailItemValue(RoundOrDefault.handle(quoteSummary.PreviousClose))
     ))
 
     if (quoteSummary.MarketState === MARKET_STATES.PRE) {
@@ -217,12 +218,12 @@ var StockDetails = GObject.registerClass({
 
     rightDetailBox.add(this._createDetailItem(
       this._createDetailItemLabel(Translations.STOCKS.CLOSE),
-      this._createDetailItemValue(roundOrDefault(quoteSummary.Close))
+      this._createDetailItemValue(RoundOrDefault.handle(quoteSummary.Close))
     ))
 
     rightDetailBox.add(this._createDetailItem(
       this._createDetailItemLabel(Translations.STOCKS.LOW),
-      this._createDetailItemValue(roundOrDefault(quoteSummary.Low))
+      this._createDetailItemValue(RoundOrDefault.handle(quoteSummary.Low))
     ))
 
     rightDetailBox.add(this._createDetailItem(
@@ -281,7 +282,7 @@ var StockDetails = GObject.registerClass({
     const changeLabel = new St.Label({
       style_class: `detail-item-value change tar`,
       style: quoteStyle,
-      text: `${roundOrDefault(change)}${currency ? ` ${currency}` : ''}`
+      text: `${RoundOrDefault.handle(change)}${currency ? ` ${currency}` : ''}`
     })
     detailItem.add_child(changeLabel)
 
@@ -290,7 +291,7 @@ var StockDetails = GObject.registerClass({
     const changePercentLabel = new St.Label({
       style_class: `detail-item-value change tar`,
       style: quoteStyle,
-      text: `${roundOrDefault(changePercent)} %`
+      text: `${RoundOrDefault.handle(changePercent)} %`
     })
     detailItem.add_child(changePercentLabel)
 

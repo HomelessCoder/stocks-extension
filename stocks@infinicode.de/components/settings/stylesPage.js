@@ -1,11 +1,12 @@
-const ExtensionUtils = imports.misc.extensionUtils
-const Me = ExtensionUtils.getCurrentExtension()
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
 
-const { Adw, Gio, GObject, Gtk, Gdk } = imports.gi
+const { Adw, Gio, GObject, Gtk, Gdk } = imports.gi;
 
-const { SettingsHandler } = Me.imports.helpers.settings
-const { Translations } = Me.imports.helpers.translations
-const { QuoteStyleGroup } = Me.imports.components.settings.quoteStyleGroup
+const { SettingsHandler } = Me.imports.helpers.settings;
+const { Translations } = Me.imports.helpers.translations;
+const { QuoteStyleGroup } = Me.imports.components.settings.quoteStyleGroup;
+const { RoundSettingsGroup } = Me.imports.components.settings.roundSettingsGroup;
 
 var StylesPage = GObject.registerClass(
   {
@@ -20,6 +21,7 @@ var StylesPage = GObject.registerClass(
       });
 
       this.add(new QuoteStyleGroup());
+      this.add(new RoundSettingsGroup());
     }
   }
 )

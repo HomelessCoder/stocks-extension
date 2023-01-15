@@ -49,7 +49,7 @@ const MenuPosition = {
 }
 
 let StocksMenuButton = GObject.registerClass(class StocksMenuButton extends PanelMenu.Button {
-  _init () {
+  _init() {
     this._previousPanelPosition = null
     this._settingsChangedId = null
 
@@ -89,11 +89,11 @@ let StocksMenuButton = GObject.registerClass(class StocksMenuButton extends Pane
     this._sync()
   }
 
-  _sync (changedValue, changedKey) {
+  _sync(changedValue, changedKey) {
     this.checkPositionInPanel()
   }
 
-  checkPositionInPanel () {
+  checkPositionInPanel() {
     const container = this.container
     const parent = container.get_parent()
 
@@ -123,7 +123,7 @@ let StocksMenuButton = GObject.registerClass(class StocksMenuButton extends Pane
     this._previousPanelPosition = this._settings.position_in_panel
   }
 
-  _destroyExtension () {
+  _destroyExtension() {
     if (this._settingsChangedId) {
       this._settings.disconnect(this._settingsChangedId)
     }
@@ -132,17 +132,17 @@ let StocksMenuButton = GObject.registerClass(class StocksMenuButton extends Pane
 
 var stocksMenu
 
-function init (extensionMeta) {
+function init(extensionMeta) {
   ExtensionUtils.initTranslations()
 }
 
-function enable () {
+function enable() {
   stocksMenu = new StocksMenuButton()
   Main.panel.addToStatusArea('stocksMenu', stocksMenu)
   stocksMenu.checkPositionInPanel()
 }
 
-function disable () {
+function disable() {
   if (stocksMenu) {
     stocksMenu.destroy()
   }

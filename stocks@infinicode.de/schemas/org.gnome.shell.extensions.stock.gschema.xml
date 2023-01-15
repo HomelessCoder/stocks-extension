@@ -64,5 +64,9 @@
             <default>true</default>
             <summary>If enabled instrument names will be used from data provider.</summary>
         </key>
+        <key type="i" name="round-precision">
+            <default>4</default>
+            <summary>Number of significant digits. Must be in the range 1 - 21, inclusive</summary>
+        </key>
     </schema>
 </schemalist>

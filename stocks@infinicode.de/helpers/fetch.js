@@ -4,13 +4,13 @@ const DEFAULT_TIME_OUT_IN_SECONDS = 10
 const DEFAULT_CHROME_USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
 
 const Response = class {
-  constructor (message, body) {
+  constructor(message, body) {
     this.message = message
     this.body = body
 
     if (message) {
       this.headers = message.response_headers
-      this.url = message.get_uri().to_string(true)
+      this.url = message.get_uri().to_string_partial(true)
       this.status = message.status_code
       this.statusText = Soup.Status.get_phrase(this.status)
 
@@ -18,15 +18,15 @@ const Response = class {
     }
   }
 
-  blob () {
+  blob() {
     return this.body
   }
 
-  text () {
+  text() {
     return this.body
   }
 
-  json () {
+  json() {
     try {
       return JSON.parse(this.text())
     } catch (e) {

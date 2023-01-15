@@ -54,6 +54,9 @@ var Translations = {
       COLOR_CHOOSER_NEGATIVE: _('Quote negative color'),
       FONT_CHOOSER_POSITIVE: _('Quote positive font'),
       FONT_CHOOSER_NEGATIVE: _('Quote negative font'),
+    },
+    ROUND_SETTINGS: {
+      GROUP_TITLE: _('Round precision')
     }
   },
   STOCKS: {

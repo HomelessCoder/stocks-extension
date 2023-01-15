@@ -6,7 +6,8 @@ const ExtensionUtils = imports.misc.extensionUtils
 const Me = ExtensionUtils.getCurrentExtension()
 
 const { setTimeout, clearTimeout } = Me.imports.helpers.components
-const { roundOrDefault, isNullOrEmpty } = Me.imports.helpers.data
+const { isNullOrEmpty } = Me.imports.helpers.data
+const { RoundOrDefault } = Me.imports.helpers.roundOrDefault;
 const { getQuoteStyle } = Me.imports.helpers.styles
 
 const {
@@ -25,6 +26,10 @@ const {
   QUOTE_STYLE_FONT_NEGATIVE
 } = Me.imports.helpers.quoteStyleSettings
 
+const {
+  ROUND_SETTINGS_PRECISION
+} = Me.imports.helpers.roundSettings
+
 const { Translations } = Me.imports.helpers.translations
 
 const { MARKET_STATES } = Me.imports.services.meta.generic
@@ -40,7 +45,8 @@ const SETTING_KEYS_TO_REFRESH = [
   QUOTE_STYLE_COLOR_POSITIVE,
   QUOTE_STYLE_COLOR_NEGATIVE,
   QUOTE_STYLE_FONT_POSITIVE,
-  QUOTE_STYLE_FONT_NEGATIVE
+  QUOTE_STYLE_FONT_NEGATIVE,
+  ROUND_SETTINGS_PRECISION
 ]
 
 const TICKER_ITEM_VARIATION = {
@@ -74,7 +80,7 @@ var MenuStockTicker = GObject.registerClass({
 
     this._settingsChangedId = this._settings.connect('changed', (value, key) => {
       this._registerTimeout(false)
-
+      console.log('settingsChangedIdsettingsChangedId', SETTING_KEYS_TO_REFRESH, key);
       if (SETTING_KEYS_TO_REFRESH.includes(key)) {
         this._sync()
       }
@@ -153,7 +159,7 @@ var MenuStockTicker = GObject.registerClass({
       y_expand: true,
       style_class: `ticker-stock-quote-label fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(price)}${currencySymbol}`
+      text: `${RoundOrDefault.handle(price)}${currencySymbol}`
     })
 
     const changeLabel = new St.Label({
@@ -161,7 +167,7 @@ var MenuStockTicker = GObject.registerClass({
       y_expand: true,
       style_class: `ticker-stock-quote-change-label fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(change)}  ${roundOrDefault(changePercent)} %${isOffMarket ? '*' : ''}`
+      text: `${RoundOrDefault.handle(change)}  ${RoundOrDefault.handle(changePercent)} %${isOffMarket ? '*' : ''}`
     })
 
     stockNameLabel.get_clutter_text().set_ellipsize(Pango.EllipsizeMode.NONE)
@@ -206,7 +212,7 @@ var MenuStockTicker = GObject.registerClass({
       y_expand: true,
       style_class: `ticker-stock-quote-label fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(price)}${currencySymbol}`
+      text: `${RoundOrDefault.handle(price)}${currencySymbol}`
     })
 
     const stockQuoteChangeLabel = new St.Label({
@@ -214,7 +220,7 @@ var MenuStockTicker = GObject.registerClass({
       y_expand: true,
       style_class: `ticker-stock-quote-change-label fwb`,
       style: quoteStyle,
-      text: `(${roundOrDefault(change)}${currencySymbol} | ${roundOrDefault(changePercent)} %)${isOffMarket ? '*' : ''}`
+      text: `(${RoundOrDefault.handle(change)}${currencySymbol} | ${RoundOrDefault.handle(changePercent)} %)${isOffMarket ? '*' : ''}`
     })
 
     stockQuoteLabel.get_clutter_text().set_ellipsize(Pango.EllipsizeMode.NONE)
@@ -253,7 +259,7 @@ var MenuStockTicker = GObject.registerClass({
       y_expand: true,
       style_class: `ticker-stock-quote-label fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(price)}${currencySymbol}`
+      text: `${RoundOrDefault.handle(price)}${currencySymbol}`
     })
 
     stockNameLabel.get_clutter_text().set_ellipsize(Pango.EllipsizeMode.NONE)

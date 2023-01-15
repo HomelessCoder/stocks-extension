@@ -3,10 +3,11 @@ const { Clutter, GObject, Pango, St } = imports.gi
 const ExtensionUtils = imports.misc.extensionUtils
 const Me = ExtensionUtils.getCurrentExtension()
 
-const { fallbackIfNaN, roundOrDefault } = Me.imports.helpers.data
+const { fallbackIfNaN } = Me.imports.helpers.data
 const { Translations } = Me.imports.helpers.translations
 const { MARKET_STATES } = Me.imports.services.meta.generic
 const { getQuoteStyle } = Me.imports.helpers.styles
+const { RoundOrDefault } = Me.imports.helpers.roundOrDefault;
 
 var StockCard = GObject.registerClass({
   GTypeName: 'StockExtension_StockCard'
@@ -95,7 +96,7 @@ var StockCard = GObject.registerClass({
     const regularQuoteLabel = new St.Label({
       style_class: `quote-label`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.Close)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
+      text: `${RoundOrDefault.handle(this.cardItem.Close)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
     })
 
     quoteInformationPriceBox.add_child(regularQuoteLabel)
@@ -106,7 +107,7 @@ var StockCard = GObject.registerClass({
       const preMarketQuoteLabel = new St.Label({
         style_class: `quote-label pre-market`,
         style: preMarketQuoteStyle,
-        text: `${roundOrDefault(this.cardItem.PreMarketPrice)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}*`
+        text: `${RoundOrDefault.handle(this.cardItem.PreMarketPrice)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}*`
       })
 
       quoteInformationPriceBox.add_child(new St.Label({ style_class: 'quote-separation tar', text: ' / ' }))
@@ -119,7 +120,7 @@ var StockCard = GObject.registerClass({
       const postMarketQuoteLabel = new St.Label({
         style_class: `quote-label post-market`,
         style: postMarketQuoteStyle,
-        text: `${roundOrDefault(this.cardItem.PostMarketPrice)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}*`
+        text: `${RoundOrDefault.handle(this.cardItem.PostMarketPrice)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}*`
       })
 
       quoteInformationPriceBox.add_child(new St.Label({ style_class: 'quote-separation tar', text: ' / ' }))
@@ -153,13 +154,13 @@ var StockCard = GObject.registerClass({
     const quoteChangeLabel = new St.Label({
       style_class: `small-text fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.Change)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
+      text: `${RoundOrDefault.handle(this.cardItem.Change)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
     })
 
     const quoteChangePercentLabel = new St.Label({
       style_class: `small-text fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.ChangePercent)} %`
+      text: `${RoundOrDefault.handle(this.cardItem.ChangePercent)} %`
     })
 
     const placeHolder = new St.Label({
@@ -193,13 +194,13 @@ var StockCard = GObject.registerClass({
     const quoteChangeLabel = new St.Label({
       style_class: `small-text fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.PreMarketChange)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
+      text: `${RoundOrDefault.handle(this.cardItem.PreMarketChange)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
     })
 
     const quoteChangePercentLabel = new St.Label({
       style_class: `small-text fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.PreMarketChangePercent)} %`
+      text: `${RoundOrDefault.handle(this.cardItem.PreMarketChangePercent)} %`
     })
 
     const placeHolder = new St.Label({
@@ -233,13 +234,13 @@ var StockCard = GObject.registerClass({
     const quoteChangeLabel = new St.Label({
       style_class: `small-text fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.PostMarketChange)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
+      text: `${RoundOrDefault.handle(this.cardItem.PostMarketChange)}${this.cardItem.CurrencySymbol ? ` ${this.cardItem.CurrencySymbol}` : ''}`
     })
 
     const quoteChangePercentLabel = new St.Label({
       style_class: `small-text fwb`,
       style: quoteStyle,
-      text: `${roundOrDefault(this.cardItem.PostMarketChangePercent)} %`
+      text: `${RoundOrDefault.handle(this.cardItem.PostMarketChangePercent)} %`
     })
 
     const placeHolder = new St.Label({

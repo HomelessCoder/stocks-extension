@@ -8,7 +8,8 @@ const { Chart } = Me.imports.components.chart.chart
 const { StockDetails } = Me.imports.components.stocks.stockDetails
 const { SearchBar } = Me.imports.components.searchBar.searchBar
 
-const { clearCache, roundOrDefault } = Me.imports.helpers.data
+const { clearCache } = Me.imports.helpers.data
+const { RoundOrDefault } = Me.imports.helpers.roundOrDefault;
 const { Translations } = Me.imports.helpers.translations
 
 const { CHART_RANGES, CHART_RANGES_MAX_GAP } = Me.imports.services.meta.generic
@@ -139,12 +140,12 @@ var StockDetailsScreen = GObject.registerClass({
         return
       }
 
-      const changeAbsolute = roundOrDefault(this._quoteSummary.Close - y)
-      const changePercentage = roundOrDefault((this._quoteSummary.Close / y * 100) - 100)
+      const changeAbsolute = RoundOrDefault.handle(this._quoteSummary.Close - y)
+      const changePercentage = RoundOrDefault.handle((this._quoteSummary.Close / y * 100) - 100)
 
       const quoteStyle = getQuoteStyle(changePercentage)
 
-      chartValueLabel.text = `${(new Date(x)).toLocaleFormat(Translations.FORMATS.DEFAULT_DATE_TIME)} ${roundOrDefault(y)}`
+      chartValueLabel.text = `${(new Date(x)).toLocaleFormat(Translations.FORMATS.DEFAULT_DATE_TIME)} ${RoundOrDefault.handle(y)}`
       chartValueChangeLabel.text = `(${changeAbsolute} / ${changePercentage} %)`
       chartValueChangeLabel.style_class = `chart-hover-change-label`
       chartValueChangeLabel.style = quoteStyle
